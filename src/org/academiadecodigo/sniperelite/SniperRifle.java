@@ -7,6 +7,8 @@ import org.academiadecodigo.sniperelite.gameobjects.*;
 public class SniperRifle {
 
     private int bulletDamage;
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     //constructors
 
@@ -29,22 +31,22 @@ public class SniperRifle {
 
     //Methods
 
-    public void shoot(Enemy enemy){
+    public void shoot(Destroyable target){
 
         int number = RNG.getRandom(0,100);
 
         //receives an enemy and then shoots at him until he stops moving.
 
-        if(number < 5) {
-            System.out.println("Headshot! -------------");
-            enemy.hit(this.bulletDamage * 2);
-        }
-        else if(number >= 5 && number < 15){
-            System.out.println("Missed");
-        }
-        else{
-            System.out.println("Took a shot");
-            enemy.hit(this.bulletDamage);
+        if(!target.isDestroyed()) {
+            if (number < 5 && !(target instanceof Barrel)) {
+                System.out.println(ANSI_RED + "----------------- Headshot! Double Damage -----------------" + ANSI_RESET);
+                target.hit(this.bulletDamage * 2);
+            } else if (number >= 5 && number < 15) {
+                System.out.println(ANSI_RED + "Sniper: Missed" + ANSI_RESET);
+            } else {
+                System.out.println(ANSI_RED + "Sniper: Took a shot" + ANSI_RESET);
+                target.hit(this.bulletDamage);
+            }
         }
 
     }

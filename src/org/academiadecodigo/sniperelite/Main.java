@@ -9,12 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Game g = new Game();
-        GameObject[] gameObjects = g.createObjects(5);
+        Game g = new Game(1, 5, 0);
 
-        SniperRifle sniperRifle = new SniperRifle(1);
-
-        g = new Game(gameObjects, sniperRifle, 0);
         g.start();
 
 

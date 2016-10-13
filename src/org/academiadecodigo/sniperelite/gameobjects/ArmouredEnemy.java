@@ -36,27 +36,47 @@ public class ArmouredEnemy extends Enemy {
 
         int armor = getArmor();
         int health = getHealth();
-        int remainingDamage;
 
-        System.out.println("I have " + armor + " armor and " + health + " health");
 
-        if(health <= 0){
-            setDead(true);
+        if (damage <= 0) {
             return;
         }
 
-        if(armor > 0){
-            setArmor(armor-damage);
+        if (health <= 0) {
+            System.out.println("I'm dead!");
+            this.setDead(true);
+            return;
         }
-        else{
-            setArmor(0);
-            setHealth(health-damage);
+
+        if (armor > 0) {
+            System.out.println("I have " + armor + " armor and " + health + " health and took " + damage + " damage to my armor");
+            dealDamageToArmor(damage);
+
+            armor = getArmor();
+            if (armor <= 0) {
+                dealDamageToHealth(-armor);
+                setArmor(0);
+            }
+
+        } else {
+            System.out.println("I have " + armor + " armor and " + health + " health and took " + damage + " damage to my health");
+            dealDamageToHealth(damage);
+            if(getHealth() <= 0)
+                this.setDead(true);
         }
+    }
+
+    public void dealDamageToHealth(int damage){
+        health -= damage;
+    }
+
+    public void dealDamageToArmor(int damage){
+        armor -= damage;
     }
 
     @Override
     public String getMessage() {
-        return "Imma a armored, shoot me >:3";
+        return "Im a a armored enemy, shoot me >:3";
     }
 
 

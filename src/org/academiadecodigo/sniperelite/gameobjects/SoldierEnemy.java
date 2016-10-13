@@ -21,22 +21,28 @@ public class SoldierEnemy extends Enemy {
 
         int health = getHealth();
 
-        System.out.println("I have " + health + " health");
+
+        if(damage < 0)
+            return;
 
         if(health <= 0){
-            super.setDead(true);
+            System.out.println("I'm dead!");
+            setDead(true);
             return;
         }
         else{
+            System.out.println("I have " + health + " health and took " + damage + " damage");
             health -= damage;
-            super.setHealth(health);
+            setHealth(health);
+            if(getHealth() <= 0)
+                this.setDead(true);
 
         }
     }
 
     @Override
     public String getMessage() {
-        return "Imma a Soldier, shoot me >:3";
+        return "Im a Soldier, shoot me >:3";
     }
 
 

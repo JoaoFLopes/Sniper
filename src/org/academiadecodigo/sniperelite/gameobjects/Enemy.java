@@ -3,10 +3,10 @@ package org.academiadecodigo.sniperelite.gameobjects;
 /**
  * Created by codecadet on 12/10/16.
  */
-public abstract class Enemy extends GameObject {
+public abstract class Enemy extends GameObject implements Destroyable{
 
     int health;
-    boolean isDead;
+    boolean dead;  //used by isDestroyed() instead of the isDead()
 
     //constructors
 
@@ -15,7 +15,7 @@ public abstract class Enemy extends GameObject {
 
     public Enemy(int health, boolean isDead) {
         this.health = health;
-        this.isDead = isDead;
+        this.dead = isDead;
     }
 
     //gets and sets
@@ -30,11 +30,15 @@ public abstract class Enemy extends GameObject {
     }
 
     public boolean isDead() {
-        return isDead;
+        return dead;
     }
 
     public void setDead(boolean dead) {
-        isDead = dead;
+        this.dead = dead;
+    }
+
+    public boolean isDestroyed(){
+        return dead;
     }
 
     //Methods
